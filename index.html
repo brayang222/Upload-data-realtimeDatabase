@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Fomulario</h1>
+      <form action="">
+        <div class="formulario">
+          <label for="">Documento</label>
+          <input type="number" id="txtDocumento" value="" />
+          <label for="">Correo</label>
+          <input type="text" id="txtCorreo" value="" />
+          <label for="">Nombre</label>
+          <input type="text" id="txtNombre" value="" />
+        </div>
+        <button id="btnEnviar">Enviar</button>
+      </form>
+    </main>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import {
+        getDatabase,
+        set,
+        ref,
+        get,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCZIVveasCFBEYXs_rB-lfhX67W0ieT90o",
+        authDomain: "firstapp-fa301.firebaseapp.com",
+        projectId: "firstapp-fa301",
+        storageBucket: "firstapp-fa301.appspot.com",
+        messagingSenderId: "313058885608",
+        appId: "1:313058885608:web:51b69ea26f59ca28922e5d",
+        measurementId: "G-DEPEVKYK3Y",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      const btnSend = document.getElementById("btnEnviar");
+
+      btnSend.addEventListener("click", function (e) {
+        const documento = document.getElementById("txtDocumento").value;
+        const email = document.getElementById("txtCorreo").value;
+        const nombre = document.getElementById("txtNombre").value;
+
+        e.preventDefault();
+        set(ref(db, "datos/" + documento), {
+          txtDocumento: documento,
+          txtCorreo: email,
+          txtNombre: nombre,
+        });
+        alert("Encuesta enviada correctamente!");
+      });
+    </script>
+  </body>
+</html>
